@@ -1,0 +1,195 @@
+[
+    {
+        "id": "7764455e.d3d65c",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c6b7a938.e96808",
+        "type": "ui_form",
+        "z": "7764455e.d3d65c",
+        "name": "",
+        "label": "",
+        "group": "662a29f9.d5aa18",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "options": [
+            {
+                "label": "Enter your input",
+                "value": "text",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "text": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "",
+        "x": 120,
+        "y": 200,
+        "wires": [
+            [
+                "45298c78.78e4d4"
+            ]
+        ]
+    },
+    {
+        "id": "45298c78.78e4d4",
+        "type": "function",
+        "z": "7764455e.d3d65c",
+        "name": "input parsing",
+        "func": "msg.payload = msg.payload.text;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 200,
+        "wires": [
+            [
+                "753b4e17.1d189",
+                "6e7765b5.fd4dcc"
+            ]
+        ]
+    },
+    {
+        "id": "753b4e17.1d189",
+        "type": "ui_text",
+        "z": "7764455e.d3d65c",
+        "group": "662a29f9.d5aa18",
+        "order": 2,
+        "width": "6",
+        "height": "2",
+        "name": "",
+        "label": "Customer",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 470,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "15d1b0a7.12970f",
+        "type": "ui_text",
+        "z": "7764455e.d3d65c",
+        "group": "52f88f48.61d16",
+        "order": 3,
+        "width": "0",
+        "height": "0",
+        "name": "",
+        "label": "Chatbot",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 750,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "6e7765b5.fd4dcc",
+        "type": "watson-conversation-v1",
+        "z": "7764455e.d3d65c",
+        "name": "Customer Assistance",
+        "workspaceid": "a74886a0-2232-4703-bb1f-2314186e760c",
+        "multiuser": false,
+        "context": false,
+        "empty-payload": false,
+        "service-endpoint": "",
+        "timeout": "",
+        "optout-learning": false,
+        "x": 580,
+        "y": 160,
+        "wires": [
+            [
+                "74e6446f.2bb51c"
+            ]
+        ]
+    },
+    {
+        "id": "74e6446f.2bb51c",
+        "type": "function",
+        "z": "7764455e.d3d65c",
+        "name": "parsing",
+        "func": "msg.payload.text=\"\";\nif(msg.payload.context.webhook_result_1){\n    for(var i in msg.payload.context.webhook_result_1.results){\n        msg.payload.text=msg.payload.text+\"\\n\"+msg.payload.context.webhook_result_1.results[i].text;\n    }\n    msg.payload=msg.payload.text;\n}\nelse\nmsg.payload=msg.payload.output.text[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 680,
+        "y": 240,
+        "wires": [
+            [
+                "969dc5e3.df3148",
+                "15d1b0a7.12970f"
+            ]
+        ]
+    },
+    {
+        "id": "969dc5e3.df3148",
+        "type": "debug",
+        "z": "7764455e.d3d65c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 750,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "c43e03db.e6e65",
+        "type": "inject",
+        "z": "7764455e.d3d65c",
+        "name": "",
+        "topic": "",
+        "payload": "hello",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 330,
+        "y": 60,
+        "wires": [
+            [
+                "6e7765b5.fd4dcc"
+            ]
+        ]
+    },
+    {
+        "id": "662a29f9.d5aa18",
+        "type": "ui_group",
+        "z": "",
+        "name": "chatbot",
+        "tab": "4fc5635a.5a2a1c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "52f88f48.61d16",
+        "type": "ui_group",
+        "z": "",
+        "name": "",
+        "tab": "4fc5635a.5a2a1c",
+        "order": 2,
+        "disp": true,
+        "width": "20",
+        "collapse": false
+    },
+    {
+        "id": "4fc5635a.5a2a1c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "customercare",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
