@@ -136,9 +136,16 @@ From the Dialog panel, click the Try it button and Enter some user input and tes
 
 Go to Cloud Foundary App in the IBM Cloud Dashboard and go to the Visit the app url. This will direct us to the NOde-RED software, now click on Go to the Node-RED flow editor
 
-Now Install the Node-RED dashboard from the "Manage Pallet". Now Create the flow shown below in the flow editor.
+Now Install the Node-RED dashboard from the "Manage Pallet". Now Create the flow shown below in the flow editor. (Images are given in the reference in git. Please refer that)
 
-![Capture](https://ishubot.eu-gb.mybluemix.net/red/#flow/7764455e.d3d65c)
+Now click on Assistant and make sure you enter the correct credentials (Workspace ID) that we have created earlier. Otherwise it gives an error like "Resource Not Found". Now Deploy the flow. If everything is correct, then it will be deployed successfully.
+
+Now copy the url till ./net and add ui to the url now you can see the user interactive ui. Test the bot and check if it is giving the accurate results. Images have been provided for the reference.
+
+## License
+
+This project is licensed under the MIT License.
+
 
 
 
