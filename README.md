@@ -52,58 +52,95 @@ Before applying SDU to the document, lets do some simple queries on the data so 
 
 ![Capture](https://github.com/IBM/watson-discovery-sdu-with-assistant/blob/master/doc/source/images/disco-collection-panel-pre.png)
 
-### 6. Project  Deliverables :
+Click the Build your own query [1] button.
 
-Requirement  specification (Document) - Initial  briefing  report.
+Enter queries related to the operation of the thermostat and view the results. The results are not very useful, and in some cases, not even related to the question.
 
-User  interface
+#### Annotate with SDU 
 
-Backend  Development
+Now let's apply SDU to the document to see if we can generate some better query responses.
 
-Set up of Test System
+From the Discovery collection panel, click the Configure data button to start the SDU process.
 
-User Training  session
+The goal is to annotate all of the pages in the document so Discovery can learn what text is important, and what text can be ignored.
 
-Project Report
+i) Select text and assign it a label like subtitle, text, footer, etc.,
 
-### 7. Project  Team:
+ii) Submit the page to Discovery.
 
-Individual  project
+As we go though the annotations one page at a time, Discovery is learning and should start automatically updating the upcoming pages. Once we get to a page that is already correctly annotated, we can stop, or simply click Submit. The more pages you annotate, the better the model will be trained.
 
-Name : G.Bhavya
+Once we click the Apply changes to collection button, we will be asked to reload the document. Choose the same manual .pdf document as before.
 
-### 8. Project  Schedule : (19  days)
+Next, click on the Manage fields tab.
 
-Project  Planning  & Kickoff - 1day
+Here is where we tell Discovery which fields to ignore. Using the on/off buttons, turn off all labels except subtitles and text. Tell the Discovery to split the document apart, based on subtitle. Submit the changes. Once again, you will be asked to reload the document.
 
-Setup  the  Development  Environment - 1 day
+![Capture](https://github.com/IBM/watson-discovery-sdu-with-assistant/blob/master/doc/source/images/disco-collection-panel.png)
 
-Create IBM  Cloud  Account - 0.5 day
+Return to the "Build your own Query" and we will see how much better the results look like.
 
-Create  a  Node_RED  Starter  Application - 1 day
+### Create IBM Cloud Functions action
 
-Explore  IBM  Watson  Usecases - 0.5  day
+Start the IBM Cloud Functions service by selecting Create Resource from the IBM Cloud dashboard. Enter functions as the filter, then select the Functions card
 
-Introduction  to  Watson  Assistance - 2 days
+From the Functions main panel, click on the Actions tab. Then click on Create.
 
-Introduction  to  Watson  Discovery- 2 days
+From the Create panel, select the Create Action option.
 
-Getting  Started  with  IBM  Cloud  Functions - 1 day
+On the Create Action panel, provide a unique Action Name, keep the default package, and select the Node.js 10 runtime. Click the Create button to create the action.
 
-Create  necessary  IBM  Cloud  services - 1 day
+Once your action is created, click on the Code tab. Modify the Code as per your application.
 
-Configure  Watson  Discovery  Service - 1 day
+Select the Parameters tab. Add the following keys in the Parameter : url, environment_id, collection_id, iam_apikey
 
-Create  cloud  functions  action - 1 day
+Now that the credentials are set, return to the Code panel and press the Invoke button again. Now we should see actual results returned from the Discovery service.
 
-Configure  Watson  Assistant - 1 day
+Next, Go to the Endpoints tab, Click the checkbox for Enable as Web Action. This will generate a public endpoint URL . Take note of the URL value, as this will be needed by Watson Assistant.
 
-Build  Node-RED  flow  to  integrate  all  services - 2 days
+### Configure Watson Assistant
 
-Build  a  web  dashboard - 1 day
+Launch the Watson Assistant tool and create a new dialog skill. Select the Use sample skill option as the starting point. 
 
-Test  the  Bot  and  capture  the  results - 1 day
+#### Add new intent
 
-Prepare  the  project  report  and  upload  the  Node_RED  flow  to  GitHub - 1 day
+Create a new intent that can detect when the user is asking about operating the Ecobee thermostat.
 
-Create  a  project  Demo  Video  and  upload  to  youtube - 1 day
+Create the Intents tab and Click the Create intent button.
+
+Name the intent #Product_Information, and enter the following example questions to train the Watson.
+
+i) How to set the timer?
+
+ii) How to set the furnace?
+
+iii) How to turn on the heater?
+
+#### Create new dialog node
+
+Now we need to add a node to handle the newly added intent. Click on the Dialog tab, select the Add node below option. 
+
+Name the node "Queries about product" and assign it the newly added intent. This means that if Watson Assistant recognizes a user input such as "how do I set the time?", it will direct the conversation to this node.
+
+#### Enable Webhook from Assistant
+
+click on Customize, and enable Webhooks for this node. Click Apply.
+
+The dialog node should have a Return variable set automatically to $webhook_result_1. This is the variable name you can use to access the result from the Discovery service query. We need to pass in the users question via the parameter input. The key needs to be set to the value "<?input.text?>"
+
+#### Test in Assistant Tooling
+
+From the Dialog panel, click the Try it button and Enter some user input and test the bot if it is giving the accurate result.
+
+### Create the flow in Node-RED 
+
+Go to Cloud Foundary App in the IBM Cloud Dashboard and go to the Visit the app url. This will direct us to the NOde-RED software, now click on Go to the Node-RED flow editor
+
+Now Install the Node-RED dashboard from the "Manage Pallet". Now Create the flow shown below in the flow editor.
+
+![Capture](https://ishubot.eu-gb.mybluemix.net/red/#flow/7764455e.d3d65c)
+
+
+
+
+
