@@ -10,8 +10,15 @@ The webhook will be created by defining a web action using IBM Cloud Functions.
 
 ### What is SDU ?
 
+SDU - Smart Document Understanding. SDU trains Watson Discovery to extract custom fields in your documents. With SDU, you annotate fields within your documents to train custom conversion models. As you annotate, Watson is learning and will start predicting annotations. 
 
-### 3. Functional  Requirements:
+### What is Webhook ?
+
+A webhook is a mechanism that allows you to call out to an external program based on something happening in your program. When used in a Watson Assistant dialog skill, a webhook is triggered when the Assistant processes a node that has a webhook enabled. The webhook collects data that you specify or that you collect from the user during the conversation and save in context variables. The URL that receives the webhook is the listener. 
+
+In our example, the webhook will communicate with an IBM Cloud Functions web action, which is connected to the Watson Discovery service.
+
+### Flow
 
 ![Capture](https://user-images.githubusercontent.com/64901867/81792927-55dc0580-9526-11ea-9339-8c817ecac130.PNG)
 
@@ -23,31 +30,27 @@ step-3: Dialog  between  the  user  and  back-end  server is  coordinated  using
 
 step-4: If  the  user  asks  a  question  that  falls  outside  of  the  scope  of  the  pre-determined  question  set, then  a  search  query  is  issued  to  the  Watson  Discovery  service  through  a  Watson  Assistant  search  skill.
 
-### 4. Technical  Requirements :
+### Steps :
 
-i) write  the  code  in  github  account  and  clone  the  repository.
+i) Create IBM Cloud services.
 
-ii) Create  Watson  services.
+ii) Configure  Watson  Discovery.
 
-iii) Configure  Watson  Discovery.
+iii) Create IBM Cloud Functions action
 
 iv) Configure  Watson  Assistant.
 
-v) Add  Watson  service  credentials  to  environment  file.
+v) Create the flow in Node-RED and Run the application.
 
-vi) Run  the  application.
+### Configure Watson Discovery
 
-### 5. Software  Requirements:
+#### Import the document
 
-IBM  Cloud
+Launch the Watson Discovery tool and create a new data collection by selecting the Upload your own data option. Give the data collection a unique name. When prompted, select and upload the ecobee3_UserGuide.pdf file located in the data directory of the local repo.
 
-Node-RED (Flow-based  development  tool  for  visual  programming  developed  by  IBM).
+Before applying SDU to the document, lets do some simple queries on the data so that we can compare it to results found after applying SDU.
 
-IBM  Watson  services, Watson  Assistance, Watson  Discovery.
-
-IBM  Cloud  functions
-
-Customer  Help  Desk  with  Smart  Document  Understanding(SDU).
+![Capture](https://github.com/IBM/watson-discovery-sdu-with-assistant/blob/master/doc/source/images/disco-collection-panel-pre.png)
 
 ### 6. Project  Deliverables :
 
