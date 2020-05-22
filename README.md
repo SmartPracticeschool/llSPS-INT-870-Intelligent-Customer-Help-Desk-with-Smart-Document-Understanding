@@ -146,8 +146,20 @@ Now copy the url till ./net and add ui to the url now you can see the user inter
 
 This project is licensed under the MIT License.
 
+## Learn more
 
+Artificial Intelligence Code Patterns: https://developer.ibm.com/technologies/artificial-intelligence/
 
+With Watson: Want to take your Watson app to the next level? Join the With Watson program to leverage exclusive brand, marketing, and tech resources to amplify and accelerate your Watson embedded commercial solution. https://www.ibm.com/watson/with-watson/
 
+Kubernetes on IBM Cloud: Deliver your apps with the combined the power of Kubernetes and Docker on IBM Cloud- https://www.ibm.com/cloud/container-service
+
+## Links
+
+Demo on Youtube : https://youtu.be/pd57ehoLOv0
+
+Node-RED flow link : https://ishubot.eu-gb.mybluemix.net/red/#flow/7764455e.d3d65c
+
+Node-RED UI link : https://ishubot.eu-gb.mybluemix.net/ui/#!/0?socketid=ofDza2eEa-D9GUboAAAB
 
 
